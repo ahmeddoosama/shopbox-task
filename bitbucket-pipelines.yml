@@ -1,0 +1,29 @@
+image: node:12.18.4
+pipelines:
+  branches:
+    staging:
+      - step:
+          name: deployment
+          caches:
+            - node
+          deployment: staging
+          script:
+            - pipe: atlassian/ssh-run:0.2.2
+              variables:
+                SSH_USER: $DEPLOY_USER
+                SERVER: $STAGING_DEPLOY_HOST
+                COMMAND: 'deploy-staging.sh'
+                MODE: 'script'
+    master:
+      - step:
+          name: deployment
+          caches:
+            - node
+          deployment: production
+          script:
+            - pipe: atlassian/ssh-run:0.2.2
+              variables:
+                SSH_USER: $DEPLOY_USER
+                SERVER: $DEPLOY_HOST
+                COMMAND: 'deploy.sh'
+                MODE: 'script'
