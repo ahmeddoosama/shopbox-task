@@ -56,6 +56,14 @@ module.exports = {
         "600-px": "600px",
         "800-px": "800px",
       },
+      height: {
+        "95-px": "95px",
+        "70-px": "70px",
+        "350-px": "350px",
+        "500-px": "500px",
+        "600-px": "600px",
+        "800-px": "800px",
+      },
       maxHeight: {
         "95-px": "95px",
         "70-px": "70px",
@@ -106,6 +114,7 @@ module.exports = {
       inset: {
         "10-px": "10px",
         "15-px": "15px",
+        "5-px": "-5px"
       }
     },
   },

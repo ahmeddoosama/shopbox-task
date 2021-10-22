@@ -4,10 +4,13 @@ import { RouterModule } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule as ToastsModule } from 'ngx-toastr';
+import { CardComponent } from './components/card/card.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    CardComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -21,6 +24,7 @@ import { ToastrModule as ToastsModule } from 'ngx-toastr';
     FormsModule,
     ToastsModule,
     ReactiveFormsModule,
+    CardComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
