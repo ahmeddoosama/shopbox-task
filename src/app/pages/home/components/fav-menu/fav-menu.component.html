@@ -1,12 +1,14 @@
-<ul class="h-600-px overflow-y-auto">
-    <li class="mb-3">
+<ul class="h-600-px overflow-y-auto" *ngIf="items.length > 0">
+    <li class="mb-3"  *ngFor="let item of items">
         <div class="flex items-center justify-between text-sm font-semibold">
-            <p>Fav item</p>
+            <p>{{item.name}}</p>
+            <p>{{item.price}}</p>
         </div>
     </li>
-    <li class="mb-3">
-        <div class="flex items-center justify-between text-sm font-semibold">
-            <p>fav item</p>
-        </div>
+</ul>
+
+<ul class="h-600-px overflow-y-auto" *ngIf="items.length == 0">
+    <li class="text-sm font-semibold">
+        No Fav Items
     </li>
 </ul>

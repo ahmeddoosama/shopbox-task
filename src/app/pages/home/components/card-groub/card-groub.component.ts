@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Collection } from '../../model/home.model';
 
 @Component({
   selector: 'app-card-groub',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CardGroubComponent implements OnInit {
 
-  constructor() { }
+  collection: Collection[];
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.getCollection();
+  }
+
+  getCollection() {
+    this.http.get('http://localhost:3000/collection').subscribe(res => {
+      this.collection = res as Collection[];
+    })
   }
 
 }
