@@ -10,6 +10,11 @@ Run `npm install`.
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Pages in Project
+home page `http://localhost:4200/`.
+
+Menu Groups `http://localhost:4200/menu-group`.
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
