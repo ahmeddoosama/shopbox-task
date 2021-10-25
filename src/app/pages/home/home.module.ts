@@ -9,6 +9,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CustomerComponent } from './components/customer/customer.component';
 import { FavMenuComponent } from './components/fav-menu/fav-menu.component';
 import { CartComponent } from './components/cart/cart.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { CartComponent } from './components/cart/cart.component';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
+    SharedModule,
+    MatDialogModule
   ]
 })
 export class HomeModule { }

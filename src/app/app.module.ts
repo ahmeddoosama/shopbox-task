@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
-import { GraphQLModule } from './core/graphql/graphql.module';
 
 
 @NgModule({
@@ -21,7 +20,6 @@ import { GraphQLModule } from './core/graphql/graphql.module';
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    GraphQLModule
   ],
   providers: [],
   bootstrap: [AppComponent]

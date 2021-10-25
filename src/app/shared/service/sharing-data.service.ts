@@ -8,23 +8,75 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SharingDataService {
 
+  //#region Variable
+  total!: number;
+
   favMenu: BehaviorSubject<Array<any>> = new BehaviorSubject([]);
   favData = this.favMenu.asObservable();
 
+  cartMenu: BehaviorSubject<Array<any>> = new BehaviorSubject([]);
+  cartData = this.favMenu.asObservable();
+  //#endregion
 
   constructor(private toastrService: ToastrService) {
   }
 
+  //#endregion Functions
   addData(dataObj){
     const currentValue = this.favMenu.value;
-    const updatedValue = [...currentValue, dataObj];
-    if(updatedValue.includes(dataObj)) {
-      console.log("true")
+    let updatedValue = [...currentValue];
+
+    const t = updatedValue.map(x => x.name).indexOf(dataObj.name);
+
+    if(t>-1){
+      this.toastrService.error('This Item Already in Favorite')
+    }else{
+      updatedValue = [...currentValue,dataObj];
+      this.favMenu.next(updatedValue);
     }
-    this.favMenu.next(updatedValue);
-    
-    console.log("currentValue B =>", currentValue)
-    console.log("updatedValue B =>", updatedValue)
-    console.log("favMenu =>", this.favMenu.value)
   }
+
+  addCartData(dataObj){
+    const currentValue = this.cartMenu.value;
+    let updatedValue = [...currentValue];
+
+    const t = updatedValue.map(x => x.name).indexOf(dataObj.name);
+
+    if(t>-1){
+      updatedValue[t].qty +=1;
+    }else{
+      dataObj.qty=1;
+      updatedValue = [...currentValue,dataObj];
+      this.cartMenu.next(updatedValue);
+    }
+  }
+
+  countTotal(cartDetail: any) {
+    this.total = 0;
+    cartDetail.forEach((el: any) => {
+      this.total = (el?.price * el?.qty) + this.total;
+    });
+    return this.total ? this.total : 0 ;
+  }
+
+  totalWithTax(cartDetail: any) {
+    this.total = 0;
+    cartDetail.forEach((el: any) => {
+      this.total = (((el?.taxPercentage / 100) * el?.price) + el?.price) + this.total;
+    });
+    return this.total ? this.total : 0 ;
+  }
+
+  countTotalOffer(cartDetail: any) {
+    this.total = 0;
+    this.total = (cartDetail?.price) + this.total;
+    return this.total ? this.total : 0 ;
+  }
+
+  totalWithTaxOffer(cartDetail: any) {
+    this.total = 0;
+    this.total = (((cartDetail?.taxPercentage / 100) * cartDetail?.price) + cartDetail?.price) + this.total;
+    return this.total ? this.total : 0 ;
+  }
+  //#endregion
 }

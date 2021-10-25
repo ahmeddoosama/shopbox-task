@@ -1,0 +1,13 @@
+<div class="grid grid-cols-12 md:gap-4">
+    <div class="col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3" *ngFor="let item of menuGroups; let i = index">
+            <app-menu-item
+                [i]="index"
+                [id]="item?.id"
+                [image]="item?.image"
+                [name]="item?.name"
+                [price]="item?.price"
+                [taxPercentage]="item?.taxPercentage"
+                [collection]="item?.collection">
+            </app-menu-item>
+    </div>
+</div>

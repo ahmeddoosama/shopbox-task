@@ -1,20 +1,22 @@
-<ul class="h-600-px overflow-y-auto">
-    <li class="mb-3">
+<ul class="h-600-px overflow-y-auto" *ngIf="items.length > 0">
+    <li class="mb-3" *ngFor="let item of items">
         <div class="flex items-center justify-between text-sm font-semibold">
-            <p>test item</p>
-            <div class="flex items-center justify-center w-8 h-8 bg-gray-200 rounded-full">1</div>
+            <div class="flex items-center text-sm">
+                <p class="mr-2">{{item.name}}</p>
+                <div class="flex items-center justify-center w-6 h-6 bg-gray-200 rounded-full">{{item.qty}}</div>
+            </div>
+            <p>{{item.price}} $</p>
         </div>
     </li>
-    <li class="mb-3">
-        <div class="flex items-center justify-between text-sm font-semibold">
-            <p>test item</p>
-            <div class="flex items-center justify-center w-8 h-8 bg-gray-200 rounded-full">2</div>
-        </div>
+</ul>
+<ul class="h-600-px overflow-y-auto" *ngIf="items.length == 0">
+    <li class="text-sm font-semibold">
+        No Cart Items
     </li>
 </ul>
 <div class="flex items-center justify-between text-xl font-semibold mb-4">
     <h4>Subtotal</h4>
-    <p>0,00$</p>
+    <p>{{ totalCartPrice }}$</p>
 </div>
 <button class="flex items-center text-xl font-semibold text-red-600 mb-4">
     <h4 class="mr-2">Discount</h4>
@@ -22,7 +24,7 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
     </svg>
 </button>
-<div class="flex items-center justify-between text-2xl font-semibold border-t pt-1">
-    <h4>Total</h4>
-    <p>0,00$</p>
+<div class="flex items-center justify-between text-xl font-semibold border-t pt-4">
+    <h4>Total wit Tax</h4>
+    <p>{{ totalCartPriceWithTax }}$</p>
 </div>

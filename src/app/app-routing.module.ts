@@ -6,6 +6,10 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)
   },
+  {
+    path: 'menu-group',
+    loadChildren: () => import('./pages/menu-group/menu-group.module').then(m => m.MenuGroupModule)
+  },
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
 	{ path: '**', redirectTo: 'pages' }
 ];
