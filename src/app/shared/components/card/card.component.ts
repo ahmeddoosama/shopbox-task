@@ -1,6 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Item } from '../../../pages/home/model/home.model';
+import { Menu } from '../../../pages/menu-group/model/menu-groups.model';
 import { SharingDataService } from './../../service/sharing-data.service';
+import { CheckOfferService } from '../../service/check-offer.service';
 
 @Component({
   selector: 'app-card',
@@ -22,10 +25,13 @@ export class CardComponent implements OnInit {
   favMenu: Item[] = [];
   addToFav: boolean = false;
   addCart: boolean = false;
+  items: Item[] = [];
   //#endregion
 
   constructor(
-    private sharingDataService: SharingDataService
+    private sharingDataService: SharingDataService,
+    private checkOfferService: CheckOfferService,
+    private http: HttpClient,
   ) { }
 
   ngOnInit(): void {
@@ -38,10 +44,11 @@ export class CardComponent implements OnInit {
       id: this.id,
       name: this.name,
       price: this.price,
-      qty: this.qty,
       image: this.image,
-      taxPercentage: this.taxPercentage
+      taxPercentage: this.taxPercentage,
+      count: 1
     }
+
     this.sharingDataService.addData(favItem);
   }
 
@@ -51,13 +58,28 @@ export class CardComponent implements OnInit {
       id: this.id,
       name: this.name,
       price: this.price,
-      qty: this.qty,
       image: this.image,
-      taxPercentage: this.taxPercentage
+      taxPercentage: this.taxPercentage,
+      count: 1
     }
 
-    this.sharingDataService.addCartData(cartItem)
+    let found = this.sharingDataService.cartMenu.value.find((product) => product.id == cartItem.id);
+    if(found) {
+      found.count++;
+    }else{
+      this.sharingDataService.addCartData(cartItem)
+    }
+
+
+    this.checkOfferService.offerGroup.value.forEach(offer => {
+      let foundInOffer = offer.collection.find(product => product.id == cartItem.id);
+      if(foundInOffer) {
+        this.checkOfferService.createMutualArray(foundInOffer)
+      }else{
+        console.log('not found')
+      }
+    });
+
   }
   //#endregion
-
 }

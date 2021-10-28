@@ -3,9 +3,9 @@
         <div class="flex items-center justify-between text-sm font-semibold">
             <div class="flex items-center text-sm">
                 <p class="mr-2">{{item.name}}</p>
-                <div class="flex items-center justify-center w-6 h-6 bg-gray-200 rounded-full">{{item.qty}}</div>
+                <div class="flex items-center justify-center w-6 h-6 bg-gray-200 rounded-full">{{item.count}}</div>
             </div>
-            <p>{{item.price}} $</p>
+            <p>{{item.price * item.count}} $</p>
         </div>
     </li>
 </ul>

@@ -8,7 +8,11 @@
             [price]="item?.price"
             [taxPercentage]="item?.taxPercentage"
             [qty]="item?.qty"
+            [offers]="offers"
             (getItems)="addToFavorite(event)"
             ></app-card>
     </div>
 </div>
+
+
+<app-cart hidden></app-cart>

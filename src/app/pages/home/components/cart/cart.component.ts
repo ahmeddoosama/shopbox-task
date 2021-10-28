@@ -44,10 +44,7 @@ export class CartComponent implements OnInit {
     this.sharingDataService.cartMenu.subscribe((data) => {
       this.items = [...data];
       this.totalCartPrice = this.sharingDataService.countTotal(this.items);
-      this.totalCartPriceWithTax = this.sharingDataService.totalWithTax(
-        this.items
-      );
-      this.compareArr();
+      this.totalCartPriceWithTax = this.sharingDataService.totalWithTax(this.items);
     });
   }
   //#endregion

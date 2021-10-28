@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Item } from 'src/app/pages/home/model/home.model';
 import { ToastrService } from 'ngx-toastr';
+import { HttpClient } from '@angular/common/http';
+import { Menu } from '../../pages/menu-group/model/menu-groups.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +18,13 @@ export class SharingDataService {
 
   cartMenu: BehaviorSubject<Array<any>> = new BehaviorSubject([]);
   cartData = this.favMenu.asObservable();
+
   //#endregion
 
-  constructor(private toastrService: ToastrService) {
-  }
+  constructor(
+    private toastrService: ToastrService,
+    ) {
+    }
 
   //#endregion Functions
   addData(dataObj){
@@ -38,24 +43,19 @@ export class SharingDataService {
 
   addCartData(dataObj){
     const currentValue = this.cartMenu.value;
-    let updatedValue = [...currentValue];
+    let updatedValue = [...currentValue,dataObj];
 
-    const t = updatedValue.map(x => x.name).indexOf(dataObj.name);
-
-    if(t>-1){
-      updatedValue[t].qty +=1;
-    }else{
-      dataObj.qty=1;
-      updatedValue = [...currentValue,dataObj];
-      this.cartMenu.next(updatedValue);
-    }
+    this.cartMenu.next(updatedValue);
   }
 
   countTotal(cartDetail: any) {
+    // console.log("cartDetail =>", cartDetail);
+
     this.total = 0;
     cartDetail.forEach((el: any) => {
-      this.total = (el?.price * el?.qty) + this.total;
+      this.total = (el?.price * el?.count) + this.total;
     });
+
     return this.total ? this.total : 0 ;
   }
 
@@ -69,7 +69,7 @@ export class SharingDataService {
 
   countTotalOffer(cartDetail: any) {
     this.total = 0;
-    this.total = (cartDetail?.price) + this.total;
+    this.total = (cartDetail?.price * cartDetail?.count) + this.total;
     return this.total ? this.total : 0 ;
   }
 
