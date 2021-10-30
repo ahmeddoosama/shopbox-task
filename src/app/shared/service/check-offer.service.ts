@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Menu } from '../../pages/menu-group/model/menu-groups.model';
+import { SharingDataService } from './sharing-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,13 @@ export class CheckOfferService {
   mutualArray: BehaviorSubject<Array<any>> = new BehaviorSubject([]);
   mutualData = this.mutualArray.asObservable();
 
+  nonMutualArray: BehaviorSubject<Array<any>> = new BehaviorSubject([]);
+  nonMutualData = this.nonMutualArray.asObservable();
+
 
   constructor(
     private http: HttpClient,
+    private sharingDataService: SharingDataService
   ) {
     this.getMenu();
   }
@@ -37,28 +42,42 @@ export class CheckOfferService {
 
     this.mutualArray.next(updatedValue);
 
-    console.log("this.mutualArray =>", this.mutualArray.value)
+    // console.log("mutualArray =>", this.mutualArray.value)
 
-    // TODO Start Check On Mutual Array After contain 4 Items
-    if(this.mutualArray.value.length >= 4) {
-      console.log("array contain 4 items");
+    this.offerGroup.value.forEach(offer => {
+      if(this.mutualArray.value.length === offer.quantity) { //TODO check if mutual array equal any quantity of offer
+        // console.log("offer =>", offer)
+        this.sharingDataService.cartMenu.next([]) //TODO Clear Old Cart and Push New Cart With Offer
+        const newCart = [
+          {
+            id: offer.id,
+            name: offer.name,
+            price: offer.price,
+            taxPercentage: offer.taxPercentage,
+            quantity: offer.quantity,
+            count: 1,
+            collection: [...this.mutualArray.value]
+          },
+          ...this.nonMutualArray.value
+        ]
+        // console.log("new cart =>", newCart);
+        this.mutualArray.next([])
+        this.sharingDataService.cartMenu.next(newCart)
+      }
+    })
+  }
 
-      // TODO Loop in offersGroup because check on (quantity and items contain in this) offer
-      this.offerGroup.value.forEach(offer => {
+  createNonMutualArray(dataObj) {
+    let foundObj = this.mutualArray.value.find(item => item.id == dataObj.id)
 
-        // TODO if Mutual Array equal offer quantity
-        if(offer.quantity === this.mutualArray.value.length) {
-          console.log('offer.collection == mutualArray')
+    if(!foundObj) {
+      const currentValue = this.nonMutualArray.value;
+      let updatedValue = [...currentValue, dataObj];
+      this.nonMutualArray.next(updatedValue);
 
-          // TODO check mutualArray Contain at less one item Who is in this items in offer
-          offer.collection.every(el => {
-            if(this.mutualArray.value.includes(el)) {
-              console.log(`offer name (${offer.name}) =>`, offer)
-              console.log("include true");
-            }
-          })
-        }
-      })
+      // console.log("nonMutualArray =>", this.nonMutualArray.value)
+    }else{
+      console.log('founded');
     }
   }
   //#endregion

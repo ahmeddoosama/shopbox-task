@@ -73,10 +73,12 @@ export class CardComponent implements OnInit {
 
     this.checkOfferService.offerGroup.value.forEach(offer => {
       let foundInOffer = offer.collection.find(product => product.id == cartItem.id);
-      if(foundInOffer) {
+
+      if(foundInOffer) { //TODO if cart item founded in offer collection add this cart item in mutual array
+        console.log("foundInOffer =>", foundInOffer);
         this.checkOfferService.createMutualArray(foundInOffer)
-      }else{
-        console.log('not found')
+      }else if(!foundInOffer){ //TODO if not found add in nonMutual array
+        this.checkOfferService.createNonMutualArray(cartItem)
       }
     });
 
