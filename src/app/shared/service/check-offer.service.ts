@@ -23,7 +23,7 @@ export class CheckOfferService {
     private http: HttpClient,
     private sharingDataService: SharingDataService
   ) {
-    this.getMenu();
+    // this.getMenu();
   }
 
 
@@ -36,50 +36,33 @@ export class CheckOfferService {
     });
   }
 
+  // checkTwoArrays() {
+  //   if(this.sharingDataService.cartMenu.value.length >= 4) {
+  //     // const results = arrayOne.filter(({ value: id1 }) => !arrayTwo.some(({ value: id2 }) => id2 === id1));
+  //     // const results = this.sharingDataService.cartMenu.value.filter(cartItem => )
+  //   }
+  // }
+
   createMutualArray(dataObj) {
     const currentValue = this.mutualArray.value;
     let updatedValue = [...currentValue, dataObj];
 
     this.mutualArray.next(updatedValue);
-
-    // console.log("mutualArray =>", this.mutualArray.value)
-
-    this.offerGroup.value.forEach(offer => {
-      if(this.mutualArray.value.length === offer.quantity) { //TODO check if mutual array equal any quantity of offer
-        // console.log("offer =>", offer)
-        this.sharingDataService.cartMenu.next([]) //TODO Clear Old Cart and Push New Cart With Offer
-        const newCart = [
-          {
-            id: offer.id,
-            name: offer.name,
-            price: offer.price,
-            taxPercentage: offer.taxPercentage,
-            quantity: offer.quantity,
-            count: 1,
-            collection: [...this.mutualArray.value]
-          },
-          ...this.nonMutualArray.value
-        ]
-        // console.log("new cart =>", newCart);
-        this.mutualArray.next([])
-        this.sharingDataService.cartMenu.next(newCart)
-      }
-    })
   }
 
-  createNonMutualArray(dataObj) {
-    let foundObj = this.mutualArray.value.find(item => item.id == dataObj.id)
+  // createNonMutualArray(dataObj) {
+  //   let foundObj = this.mutualArray.value.find(item => item.id == dataObj.id)
 
-    if(!foundObj) {
-      const currentValue = this.nonMutualArray.value;
-      let updatedValue = [...currentValue, dataObj];
-      this.nonMutualArray.next(updatedValue);
+  //   if(!foundObj) {
+  //     const currentValue = this.nonMutualArray.value;
+  //     let updatedValue = [...currentValue, dataObj];
+  //     this.nonMutualArray.next(updatedValue);
 
-      // console.log("nonMutualArray =>", this.nonMutualArray.value)
-    }else{
-      console.log('founded');
-    }
-  }
+  //     // console.log("nonMutualArray =>", this.nonMutualArray.value)
+  //   }else{
+  //     console.log('founded');
+  //   }
+  // }
   //#endregion
 
 }

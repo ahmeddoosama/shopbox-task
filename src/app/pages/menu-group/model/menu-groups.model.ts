@@ -5,6 +5,11 @@ export interface Menu {
     name: string
     image: string
     price: number
+    menu_groups: menu_groups[]
+}
+
+export interface menu_groups {
+    quantity: number
     taxPercentage: number
-    collection: Collection[]
+    sellable_list: Collection[]
 }

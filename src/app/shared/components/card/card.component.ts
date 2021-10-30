@@ -71,17 +71,37 @@ export class CardComponent implements OnInit {
     }
 
 
-    this.checkOfferService.offerGroup.value.forEach(offer => {
-      let foundInOffer = offer.collection.find(product => product.id == cartItem.id);
+    // this.checkOfferService.offerGroup.value.forEach(offer => {
+    //   let foundInOffer = offer.collection.find(product => product.id == cartItem.id);
 
-      if(foundInOffer) { //TODO if cart item founded in offer collection add this cart item in mutual array
-        console.log("foundInOffer =>", foundInOffer);
-        this.checkOfferService.createMutualArray(foundInOffer)
-      }else if(!foundInOffer){ //TODO if not found add in nonMutual array
-        this.checkOfferService.createNonMutualArray(cartItem)
-      }
-    });
-
+    //   if(foundInOffer) { //TODO if cart item founded in offer collection add this cart item in mutual array
+    //     console.log("foundInOffer =>", foundInOffer);
+    //     this.checkOfferService.createMutualArray(foundInOffer)
+    //   }else if(!foundInOffer){ //TODO if not found add in nonMutual array
+    //     // this.checkOfferService.createNonMutualArray(cartItem)
+    //   }
+    // });
+    
+    // this.checkOfferService.offerGroup.value.forEach(offer => {
+    //   // console.log("offer =>", offer);
+      
+    //   if(offer.menu_groups.length === 1) { //TODO Check length of sellable list in menu groups
+    //     let foundObj = offer.menu_groups[0].sellable_list.find(sellableOfferItem => sellableOfferItem.id == cartItem.id) //TODO Find cart Item is in sellable list or not
+    //     // console.log("offer.menu_groups[0].sellable_list =>", offer.menu_groups[0].sellable_list);
+        
+    //     if(foundObj) {
+    //       this.checkOfferService.createMutualArray(foundObj)
+    //       if(this.checkOfferService.mutualArray.value.length >= offer.menu_groups[0].quantity) {
+    //           // let result = offer.menu_groups[0].sellable_list.filter(sellableOfferItem => this.checkOfferService.mutualArray.value.some(item => sellableOfferItem.id === item.id));
+    //           // if(result) {
+    //           //   console.log();
+                
+    //           // }
+    //         }
+    //       }
+    //     }
+    //     // console.log("newArray =>",this.checkOfferService.mutualArray.value)
+    //   })
+    }
+    //#endregion
   }
-  //#endregion
-}

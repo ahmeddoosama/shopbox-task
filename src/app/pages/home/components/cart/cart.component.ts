@@ -50,24 +50,24 @@ export class CartComponent implements OnInit {
   //#endregion
 
   //#region Create Function
-  compareArr() {
-    this.menuGroups.map((menuGroup) => {
-      if (menuGroup.collection.length == this.items.length) {
-        menuGroup.collection.map((collectionItem) => {
-          this.items.map((item) => {
-            if (collectionItem.id == item.id) {
-              this.newCollection.push(collectionItem);
-            }
-          });
-        });
+  // compareArr() {
+  //   this.menuGroups.map((menuGroup) => {
+  //     if (menuGroup.collection.length == this.items.length) {
+  //       menuGroup.collection.map((collectionItem) => {
+  //         this.items.map((item) => {
+  //           if (collectionItem.id == item.id) {
+  //             this.newCollection.push(collectionItem);
+  //           }
+  //         });
+  //       });
 
-        if (menuGroup.collection.length == this.newCollection.length && this.items.length == this.newCollection.length) {
-          this.toastrService.success('Your Order there is a discount on it');
-          this.totalCartPrice = this.sharingDataService.countTotalOffer(menuGroup);
-          this.totalCartPriceWithTax = this.sharingDataService.totalWithTaxOffer(menuGroup);
-        }
-      }
-    });
-  }
+  //       if (menuGroup.collection.length == this.newCollection.length && this.items.length == this.newCollection.length) {
+  //         this.toastrService.success('Your Order there is a discount on it');
+  //         this.totalCartPrice = this.sharingDataService.countTotalOffer(menuGroup);
+  //         this.totalCartPriceWithTax = this.sharingDataService.totalWithTaxOffer(menuGroup);
+  //       }
+  //     }
+  //   });
+  // }
   //#endregion
 }
